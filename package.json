@@ -16,5 +16,13 @@
   "bugs": {
     "url": "https://github.com/mannyaalonso/linkedin-skill-assesments/issues"
   },
-  "homepage": "https://github.com/mannyaalonso/linkedin-skill-assesments#readme"
+  "homepage": "https://github.com/mannyaalonso/linkedin-skill-assesments#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.9.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
 }
