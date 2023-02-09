@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom"
 import { useState, useEffect } from 'react'
-import SignUp from "./pages/SignUp"
-import Home from "./pages/Home"
+import SignUp from "./pages/SignUp/SignUp"
+import Home from "./pages/Home/Home"
 import axios from "axios"
 import "./App.css"
 

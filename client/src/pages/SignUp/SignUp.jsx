@@ -1,8 +1,9 @@
 import { useState } from "react"
+import { Link } from "react-router-dom"
 import axios from "axios"
 import "./form.css"
 
-const Form = ({ handleUser, users }) => {
+const SignUp = ({ handleUser, users }) => {
   const initialState = {
     name: "",
     email: "",
@@ -10,54 +11,82 @@ const Form = ({ handleUser, users }) => {
     assesments: [],
   }
 
-
   const [formState, setFormState] = useState(initialState)
-  const [helpText, setHelplText] = useState(
+  const [helpText, setHelpText] = useState(
     <p className="account">
-      That email already exists.<span> Login </span>
+      Already have an account?
+      <Link to={"/login"}>
+        <span> Login </span>
+      </Link>
     </p>
   )
-  // const [passwordLength, setPasswordLength] = useState(false)
-  // const [invalidEmail, setInvalidEmail] = useState(false)
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     if (formState.name && formState.email && formState.password) {
       for (let i = 0; i < users.length; i++) {
         if (formState.email === users[i].email) {
-          console.log("Email already exists")
-          //return setEmailMatch(true)
-        } 
+          return setHelpText(
+            <p className="account">
+              That email already exists.
+              <Link to={"/login"}>
+                <span> Login </span>
+              </Link>
+            </p>
+          )
+        }
       }
       if (validateEmail(formState.email)) {
-        if (formState.password > 7) {
-
+        if (formState.password.length > 7) {
+          try {
+            await axios.post("http://localhost:3001/api/users", formState)
+            setFormState(initialState)
+            handleUser(formState.email)
+          } catch (err) {
+            console.log(err)
+          }
         } else {
-          console.log('Please enter a password > 7 characters')
+          setHelpText(
+            <p className="account">
+              Please enter a password more than 7 characters.
+              <Link to={"/login"}>
+                <span> Login </span>
+              </Link>
+            </p>
+          )
         }
       } else {
-        console.log('Please enter a valid email')
+        setHelpText(
+          <p className="account">
+            Please enter a valid email.
+            <Link to={"/login"}>
+              <span> Login </span>
+            </Link>
+          </p>
+        )
       }
     } else {
-      console.log('Plase fill out all fields')
+      setHelpText(
+        <p className="account">
+          Please fill out all fields.
+          <Link to={"/login"}>
+            <span> Login </span>
+          </Link>
+        </p>
+      )
     }
-
-    // if (formState.name && formState.email && formState.password) {
-
-    //    if (validateEmail(formState.email)) {
-    //       setInvalidEmail(true)
-    //       await axios.post("http://localhost:3001/api/users", formState)
-    //       setFormState(initialState)
-    //       handleUser(formState.email)
-    //    } else {
-    //     setInvalidEmail(false)
-    //     console.log("Invalid Email")
-    //    }
-    // }
   }
 
   const handleChange = (e) => {
+    setHelpText(
+      <p className="account">
+        Already have an account?
+        <Link to={"/login"}>
+          <span> Login </span>
+        </Link>
+      </p>
+    )
     setFormState({ ...formState, [e.target.id]: e.target.value })
   }
 
@@ -66,7 +95,7 @@ const Form = ({ handleUser, users }) => {
       <div className="img-container">
         <div className="h1-container">
           <h1 className="img-h1">
-            Pass Your <span className="title">LinkedIn</span> Assesments
+            Pass Your <span className="title">Assessments</span>
           </h1>
         </div>
         <img
@@ -103,6 +132,7 @@ const Form = ({ handleUser, users }) => {
             <button className="signup-button" type="submit">
               Send
             </button>
+            {helpText}
           </form>
         </div>
       </div>
@@ -110,12 +140,10 @@ const Form = ({ handleUser, users }) => {
   )
 }
 
-export default Form
+export default SignUp
 
 function validateEmail(email) {
-  if (
-    /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
-  ) {
+  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
     return true
   }
   return false
