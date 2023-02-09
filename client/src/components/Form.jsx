@@ -2,7 +2,7 @@ import { useState } from "react"
 import axios from "axios"
 import "./form.css"
 
-const Form = ({ handleUser }) => {
+const Form = ({ handleUser, users }) => {
   const initialState = {
     name: "",
     email: "",
@@ -10,13 +10,51 @@ const Form = ({ handleUser }) => {
     assesments: [],
   }
 
-  const [formState, setFormState] = useState(initialState)
 
+  const [formState, setFormState] = useState(initialState)
+  const [helpText, setHelplText] = useState(
+    <p className="account">
+      That email already exists.<span> Login </span>
+    </p>
+  )
+  // const [passwordLength, setPasswordLength] = useState(false)
+  // const [invalidEmail, setInvalidEmail] = useState(false)
+  
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await axios.post("http://localhost:3001/api/users", formState)
-    setFormState(initialState)
-    handleUser(formState.email)
+
+    if (formState.name && formState.email && formState.password) {
+      for (let i = 0; i < users.length; i++) {
+        if (formState.email === users[i].email) {
+          console.log("Email already exists")
+          //return setEmailMatch(true)
+        } 
+      }
+      if (validateEmail(formState.email)) {
+        if (formState.password > 7) {
+
+        } else {
+          console.log('Please enter a password > 7 characters')
+        }
+      } else {
+        console.log('Please enter a valid email')
+      }
+    } else {
+      console.log('Plase fill out all fields')
+    }
+
+    // if (formState.name && formState.email && formState.password) {
+
+    //    if (validateEmail(formState.email)) {
+    //       setInvalidEmail(true)
+    //       await axios.post("http://localhost:3001/api/users", formState)
+    //       setFormState(initialState)
+    //       handleUser(formState.email)
+    //    } else {
+    //     setInvalidEmail(false)
+    //     console.log("Invalid Email")
+    //    }
+    // }
   }
 
   const handleChange = (e) => {
@@ -65,9 +103,6 @@ const Form = ({ handleUser }) => {
             <button className="signup-button" type="submit">
               Send
             </button>
-            <p className="account">
-              Already have an account? <span> Login </span>
-            </p>
           </form>
         </div>
       </div>
@@ -76,3 +111,12 @@ const Form = ({ handleUser }) => {
 }
 
 export default Form
+
+function validateEmail(email) {
+  if (
+    /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+  ) {
+    return true
+  }
+  return false
+}
