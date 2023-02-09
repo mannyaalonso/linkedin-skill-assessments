@@ -1,13 +1,13 @@
 const { Schema } = require("mongoose")
 
-const userSchema = new Schema(
+const usersSchema = new Schema(
   {
     name: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    assesments: [{ type: Schema.Types.ObjectId, ref: "Assesments" }],
+    assesments: [{ type: Schema.Types.ObjectId, ref: "Assessments" }],
   },
   { timestamps: true }
 )
 
-module.exports = userSchema
+module.exports = usersSchema

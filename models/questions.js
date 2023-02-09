@@ -5,8 +5,8 @@ const questionsSchema = new Schema(
     prompt: { type: String, required: true },
     answer: { type: String, required: true },
     codeUrl: { type: String, required: false },
-    grade: { type: String, required: true },
-    choices: [{ type: Schema.Types.ObjectId, ref: "Choices" }],
+    choices: { type: Array, required: true },
+    users: [{ type: Schema.Types.ObjectId, ref: "Users" }],
   },
   { timestamps: true }
 )

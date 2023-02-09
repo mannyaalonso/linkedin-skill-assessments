@@ -1,17 +1,14 @@
 const { model } = require("mongoose")
-const UserSchema = require("./user")
-const AssesmentsSchema = require("./assesments")
+const UsersSchema = require("./users")
+const AssessmentsSchema = require("./assessments")
 const QuestionsSchema = require("./questions")
-const ChoicesSchema = require("./choices")
 
-const User = model("User", UserSchema)
-const Assesment = model("Assesments", AssesmentsSchema)
+const User = model("Users", UsersSchema)
+const Assessment = model("Assessments", AssessmentsSchema)
 const Question = model("Questions", QuestionsSchema)
-const Choice = model("Choices", ChoicesSchema)
 
 module.exports = {
   User,
-  Assesment,
+  Assessment,
   Question,
-  Choice,
 }
