@@ -4,7 +4,14 @@ import './home.css'
 
 const Home = ({ handleUser }) => {
   const [user, setUser] = useState()
-  
+  const [userId, setUserId] = useState(sessionStorage.getItem("user"))
+  const [assessments, setAssessments] = useState([])
+
+  if (assessments.users) {
+    for (let i = 0; i < assessments.users.length; i++) {
+
+    }
+  }
 
   const getUserById = async () => {
     try {
@@ -13,15 +20,28 @@ const Home = ({ handleUser }) => {
           "user"
         )}`
       )
-      console.log(res.data.user)
       setUser(res.data.user)
+      console.log("USER", res.data.user)
     } catch (err) {
       console.log(err)
     }
   }
 
+  const getAssessments = async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/assessments`
+      )
+      console.log(res.data.assessments)
+      setAssessments(res.data.assessments)
+    } catch (err) {
+      console.log(err)
+    }
+  } 
+
   useEffect(() => {
     getUserById()
+    getAssessments()
   }, [])
 
   return (
@@ -39,18 +59,20 @@ const Home = ({ handleUser }) => {
           <div className="main-container">
             <h1 className="h1-container">Assessments</h1>
             <div className="assess-container">
-              <div className="card">
-                <div className="headings">
-                  <h3>Javascript</h3>
-                  <h5>Not Passed</h5>
+              {assessments.map((assessment) => (
+                <div key={assessment._id} className="card">
+                  <div className="headings">
+                    <h3>{assessment.title}</h3>
+                    {user.assessments.find((element => element._id === assessment._id)) ? (
+                      <h5>PASSED</h5>
+                    ) : (
+                      <h5>NOT PASSED</h5>
+                    )}
+                  </div>
+                  <p className="card-description">{assessment.description}</p>
+                  <button className="button-assess">Take Assessment</button>
                 </div>
-                <p className="card-description">
-                  JavaScript Fundamentals, Data Types, Advanced Logic, Browser
-                  Integration, Objects, Network Requests, Asynchronous JS, Error
-                  Handling, Prototypes and Inheritance, Code Quality
-                </p>
-                <button className="button-assess">Take Assessment</button>
-              </div>
+              ))}
             </div>
           </div>
           <div className="profile">
@@ -70,7 +92,12 @@ const Home = ({ handleUser }) => {
               </div>
               <div className="button-container">
                 <button className="button-profile">Delete Account</button>
-                <button onClick={() => handleUser(null)} className="button-profile">Logout</button>
+                <button
+                  onClick={() => handleUser(null)}
+                  className="button-profile"
+                >
+                  Logout
+                </button>
               </div>
             </div>
           </div>
