@@ -1,0 +1,173 @@
+.home-container {
+  background-color: #e9e9e9;
+  margin: 0;
+  height: 100vh;
+}
+
+.header {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 200px;
+}
+
+.img-main {
+  position: absolute;
+  object-position: center;
+  object-fit: cover;
+  width: 100%;
+  height: 100%
+}
+
+.header-h1 {
+  color: white;
+  font-size: 3rem;
+  position: absolute;
+  bottom: 10px;
+  left: 50px;
+}
+
+.main {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  margin-top: 50px;
+  justify-content: center;
+}
+.main-container {
+  border-radius: 10px;
+  background-color: #0E1B23;
+  width: 700px;
+  height: 400px;
+}
+
+.h1-container {
+  color: white;
+  margin-left: 20px;
+  margin-top: 20px;
+  position: absolute;
+}
+
+.assess-container {
+  overflow: scroll;
+  width: 100%;
+  height: 80%;
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.headings {
+  margin: 0;
+  margin-top: 20px;
+  margin-left: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h5, h3 {
+  color: white;
+  margin: 0;
+  margin-right: 20px;;
+}
+
+.card-description {
+  color: white;
+  font-size: .75rem;
+  width: 80%;
+  margin-left: 20px;
+  margin-top: 5px;
+  margin-right: 10px;
+}
+
+.card {
+  border-radius: 10px;
+  position: relative;
+  height: 110px;
+  width: 650px;
+  background-color: #182933;
+}
+
+.button-assess {
+  position: absolute;
+  right: 0;
+  font-size: .7rem;
+  margin-right: 20px;
+  margin-left: 20px;
+  border: none;
+  padding: 7px;
+  border-radius: 5px;
+  background-color: springgreen;
+  color: black;
+}
+
+.button-assess:hover {
+  background-color: white;
+  color: black;
+}
+
+.profile {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #0E1B23;
+  margin-left: 20px;
+  height: 400px;
+  width: 400px;
+}
+
+.profile-card {
+  margin-top: 30px;
+  width: 80%;
+  height: 70%;
+  border-radius: 10px;
+  background-color: #182933;
+}
+
+.profile-title {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  margin-left: 20px;
+}
+
+.h1-container-profile {
+  top: 0;
+  left: 0;
+  color: white;
+  margin-left: 20px;
+  margin-top: 20px;
+  position: absolute;
+}
+
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.button-profile {
+  width: 80px;
+  font-size: .7rem;
+  margin-right: 20px;
+  margin-left: 20px;
+  border: none;
+  padding: 7px;
+  border-radius: 5px;
+  background-color: springgreen;
+  color: black;
+}
+
+.button-profile:hover {
+  background-color: white;
+  color: black;
+}
+
+

@@ -30,11 +30,10 @@ const App = () => {
 
   return (
     <div>
-      <header></header>
       <main>
         <Routes>
           {currentUser ? (
-            <Route path="/" element={<Home currentUser={currentUser} />} />
+            <Route path="/" element={<Home currentUser={currentUser} handleUser={handleUser} />} />
           ) : (
             <Route
               path="/"

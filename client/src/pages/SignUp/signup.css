@@ -22,7 +22,7 @@ body {
   position: absolute;
 }
 
-img {
+.img-signup {
   object-fit: cover;
   width: 100%;
   height: 100%;

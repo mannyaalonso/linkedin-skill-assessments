@@ -22,7 +22,7 @@ body {
   position: absolute;
 }
 
-img {
+.img-login {
   object-fit: cover;
   width: 100%;
   height: 100%;
