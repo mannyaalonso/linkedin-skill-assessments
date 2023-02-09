@@ -10,7 +10,7 @@ const Home = ({ handleUser }) => {
   const getUserById = async () => {
     try {
       const res = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/users/${sessionStorage.getItem(
+        `${process.env.REACT_APP_BASE_URL}users/${sessionStorage.getItem(
           "user"
         )}`
       )
@@ -24,7 +24,7 @@ const Home = ({ handleUser }) => {
   const getAssessments = async () => {
     try {
       const res = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/assessments`
+        `${process.env.REACT_APP_BASE_URL}assessments`
       )
       console.log(res.data.assessments)
       setAssessments(res.data.assessments)

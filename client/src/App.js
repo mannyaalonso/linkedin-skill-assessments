@@ -17,7 +17,7 @@ const App = () => {
 
   const getUsers = async () => {
     try {
-      let res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users`)
+      let res = await axios.get(`${process.env.REACT_APP_BASE_URL}users`)
       setUsers(res.data.users)
     } catch (err) {
       console.log("Error", err)
