@@ -7,7 +7,7 @@ const Home = () => {
   const getUserById = async () => {
     try {
       const res = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/users/${localStorage.getItem(
+        `${process.env.REACT_APP_BASE_URL}/users/${sessionStorage.getItem(
           "user"
         )}`
       )

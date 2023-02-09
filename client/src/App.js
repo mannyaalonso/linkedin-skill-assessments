@@ -7,11 +7,11 @@ import axios from "axios"
 import "./App.css"
 
 const App = () => {
-  const [currentUser, setCurrentUser] = useState(localStorage.getItem('user'))
+  const [currentUser, setCurrentUser] = useState(sessionStorage.getItem("user"))
   const [users, setUsers] = useState()
 
   const handleUser = (id) => {
-    localStorage.setItem('user', id)
+    sessionStorage.setItem("user", id)
     setCurrentUser(id)
   }
 
