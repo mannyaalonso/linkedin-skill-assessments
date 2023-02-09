@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom"
 import { useState, useEffect } from 'react'
 import SignUp from "./pages/SignUp/SignUp"
+import Login from "./pages/Login/Login"
 import Home from "./pages/Home/Home"
 import axios from "axios"
 import "./App.css"
@@ -19,8 +20,12 @@ const App = () => {
       let res = await axios.get("http://localhost:3001/api/users")
       setUsers(res.data.users)
     } catch (err) {
-      console.log(err)
+      console.log("Error", err)
     }
+  }
+
+  if (currentUser) {
+
   }
 
   useEffect(() => {
@@ -40,6 +45,7 @@ const App = () => {
               element={<SignUp handleUser={handleUser} users={users} />}
             />
           )}
+            <Route path="/login" element={<Login handleUser={handleUser} users={users} />}/>
         </Routes>
       </main>
     </div>

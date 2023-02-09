@@ -95,7 +95,7 @@ const SignUp = ({ handleUser, users }) => {
       <div className="img-container">
         <div className="h1-container">
           <h1 className="img-h1">
-            Pass Your <span className="title">Assessments</span>
+            Pass Your <span className="title">LinkedIn</span> Assessments
           </h1>
         </div>
         <img
