@@ -6,7 +6,6 @@ const questionsSchema = new Schema(
     answer: { type: String, required: true },
     codeUrl: { type: String, required: false },
     choices: { type: Array, required: true },
-    users: [{ type: Schema.Types.ObjectId, ref: "Users" }],
   },
   { timestamps: true }
 )

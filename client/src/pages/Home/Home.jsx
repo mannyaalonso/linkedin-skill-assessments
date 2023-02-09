@@ -7,12 +7,6 @@ const Home = ({ handleUser }) => {
   const [userId, setUserId] = useState(sessionStorage.getItem("user"))
   const [assessments, setAssessments] = useState([])
 
-  if (assessments.users) {
-    for (let i = 0; i < assessments.users.length; i++) {
-
-    }
-  }
-
   const getUserById = async () => {
     try {
       const res = await axios.get(
@@ -63,7 +57,7 @@ const Home = ({ handleUser }) => {
                 <div key={assessment._id} className="card">
                   <div className="headings">
                     <h3>{assessment.title}</h3>
-                    {user.assessments.find((element => element._id === assessment._id)) ? (
+                    {user.assessments.find((element => element._id === assessment._id)) ? ( //thanks john
                       <h5>PASSED</h5>
                     ) : (
                       <h5>NOT PASSED</h5>
