@@ -1,29 +1,34 @@
-import { useState, useEffect } from "react"
-import axios from "axios"
+import { Route, Routes } from "react-router-dom"
+import { useState } from 'react'
+import SignUp from "./pages/SignUp"
+import Home from "./pages/Home"
 import "./App.css"
 
-function App() {
-  const [assesments, setAssesments] = useState([])
+const App = () => {
+  const [currentUser, setCurrentUser] = useState(localStorage.getItem('user'))
 
-  const getAssessments = async () => {
-    try {
-      let res = await axios.get("http://localhost:3001/api/assessments")
-      console.log(res.data)
-      setAssesments(res.data)
-    } catch (err) {
-      console.log(err)
-    }
+  const handleUser = (id) => {
+    localStorage.setItem('user', id)
+    setCurrentUser(id)
   }
 
-  useEffect(() => {
-    getAssessments()
-  }, [])
-
-  return assesments ? (
-  <div className="App">
-    Hello
-  </div>
-  ) : null
+  return (
+    <div>
+      <header></header>
+      <main>
+        <Routes>
+          {currentUser ? (
+            <Route path="/" element={<Home />} />
+          ) : (
+            <Route
+              path="/"
+              element={<SignUp handleUser={handleUser} />}
+            />
+          )}
+        </Routes>
+      </main>
+    </div>
+  )
 }
 
 export default App
