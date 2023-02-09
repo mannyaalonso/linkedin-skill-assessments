@@ -17,15 +17,11 @@ const App = () => {
 
   const getUsers = async () => {
     try {
-      let res = await axios.get("http://localhost:3001/api/users")
+      let res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users`)
       setUsers(res.data.users)
     } catch (err) {
       console.log("Error", err)
     }
-  }
-
-  if (currentUser) {
-
   }
 
   useEffect(() => {
@@ -38,7 +34,7 @@ const App = () => {
       <main>
         <Routes>
           {currentUser ? (
-            <Route path="/" element={<Home users={users} />} />
+            <Route path="/" element={<Home currentUser={currentUser} />} />
           ) : (
             <Route
               path="/"

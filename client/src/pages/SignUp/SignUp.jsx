@@ -1,5 +1,5 @@
-import { useState } from "react"
 import { Link } from "react-router-dom"
+import { useState } from "react"
 import axios from "axios"
 import "./form.css"
 
@@ -23,7 +23,6 @@ const SignUp = ({ handleUser, users }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
     if (formState.name && formState.email && formState.password) {
       for (let i = 0; i < users.length; i++) {
         if (formState.email === users[i].email) {
@@ -40,9 +39,12 @@ const SignUp = ({ handleUser, users }) => {
       if (validateEmail(formState.email)) {
         if (formState.password.length > 7) {
           try {
-            await axios.post("http://localhost:3001/api/users", formState)
+            const res = await axios.post(
+              `${process.env.REACT_APP_BASE_URL}/users`,
+              formState
+            )
             setFormState(initialState)
-            handleUser(formState.email)
+            handleUser(res.data.user._id)
           } catch (err) {
             console.log(err)
           }

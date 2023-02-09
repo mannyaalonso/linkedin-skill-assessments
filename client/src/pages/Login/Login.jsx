@@ -1,6 +1,6 @@
-import { useState } from "react"
-import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
+import { useState } from "react"
 import "./login.css"
 
 const Login = ({ handleUser, users }) => {
@@ -24,10 +24,9 @@ const Login = ({ handleUser, users }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (formState.email && formState.password) {
-      console.log(formState.email, formState.password)
       for (let i = 0; i < users.length; i++) {
         if (formState.email === users[i].email && formState.password === users[i].password) {
-          handleUser(formState.email)
+          handleUser(users[i]._id)
           navigate("/")
         } else {
           setHelpText(
