@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  font-family: 'Poppins', sans-serif;
 
 }
 .container {
@@ -109,6 +110,6 @@ title {
 
 .img-h1 {
   margin: 0;
-  font-size: 5rem;
+  font-size: 4rem;
   color: white;
 }

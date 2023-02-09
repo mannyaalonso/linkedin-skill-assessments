@@ -5,7 +5,7 @@ const usersSchema = new Schema(
     name: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    assesments: [{ type: Schema.Types.ObjectId, ref: "Assessments" }],
+    assessments: [{ type: Schema.Types.ObjectId, ref: "Assessments" }],
   },
   { timestamps: true }
 )
