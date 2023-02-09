@@ -1,14 +1,11 @@
 import { useState, useEffects } from 'react'
 import Form from '../components/Form'
-import axios from 'axios'
 
-const SignUp = ({ handleUser }) => {
 
-  
-
+const SignUp = ({ handleUser, users }) => {
   return (
     <div>
-      <Form />
+      <Form handleUser={handleUser} users={users}/>
     </div>
   )
 }
