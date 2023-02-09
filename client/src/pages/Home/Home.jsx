@@ -4,7 +4,6 @@ import './home.css'
 
 const Home = ({ handleUser }) => {
   const [user, setUser] = useState()
-  const [userId, setUserId] = useState(sessionStorage.getItem("user"))
   const [assessments, setAssessments] = useState([])
 
   const getUserById = async () => {
@@ -64,7 +63,9 @@ const Home = ({ handleUser }) => {
                     )}
                   </div>
                   <p className="card-description">{assessment.description}</p>
-                  <button className="button-assess">Take Assessment</button>
+                  {user.assessments.find((element => element._id === assessment._id)) ? 
+                  <button className="button-assess">Retake</button> :
+                  <button className="button-assess">Take Assessment</button>}
                 </div>
               ))}
             </div>
