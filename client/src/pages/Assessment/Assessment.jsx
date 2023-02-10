@@ -2,11 +2,19 @@ import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react"
 import "./assessment.css"
 import axios from "axios"
+import Countdown from "../../components/Countdown"
 
 const Assessment = () => {
   const [assessment, setAssessment] = useState()
   let userAnswers = []
   let answers = []
+  let countdown
+
+  if (assessment) {
+    const today = new Date()
+    countdown = AddMinutesToDate(today, assessment.questions.length * 2)  
+  }
+  
 
   let { id } = useParams()
 
@@ -15,7 +23,6 @@ const Assessment = () => {
       const res = await axios.get(
         `${process.env.REACT_APP_BASE_URL}assessments/${id}`
       )
-      console.log(res.data.assessment.questions)
       setAssessment(res.data.assessment)
     } catch (err) {
       console.log(err)
@@ -38,7 +45,7 @@ const Assessment = () => {
   function handleSubmit() {
     for (let i = 0; i < assessment.questions.length; i++) {
       if (userAnswers[i] === null || userAnswers.length !== assessment.questions.length) {
-        
+        return console.log("Not completed")
       }
     }
   }
@@ -54,7 +61,10 @@ const Assessment = () => {
           />
           <div className="quiz-titles">
             <button onClick={handleExit} className="button-profile">Exit</button>
-            <h1 className="quiz-h1">{assessment.title} Test</h1>
+            <div className="quiz-countdown">
+              <h1 className="quiz-h1">{assessment.title} Test</h1>
+              <Countdown countdown={countdown}/>
+            </div>
             <button onClick={handleSubmit} className="button-profile">Submit</button>
           </div>
         </header>
@@ -89,3 +99,7 @@ const Assessment = () => {
 }
 
 export default Assessment
+
+function AddMinutesToDate(date, minutes) {
+  return new Date(date.getTime() + minutes * 60000)
+}

@@ -24,10 +24,22 @@
   position: absolute;
 }
 
+.countdown {
+  text-align: center;
+  color: white;
+}
+
+.quiz-countdown {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .quiz-h1 {
   color: white;
   width: 50%;
-  font-size: 3rem;
+  font-size: 2rem;
   bottom: 10px;
   text-align: center;
 }
