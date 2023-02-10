@@ -1,0 +1,53 @@
+.assess-container {
+  background-color: #e9e9e9;
+  height: 100vh;
+  width: 100%;
+}
+
+.quiz-card {
+  border-radius: 10px;
+  background-color: #0e1b23;
+  width: 700px;
+  margin-top: 20px;
+  padding-bottom: 10px;
+}
+
+.quiz-question {
+  margin: 20px;
+}
+
+.choices {
+  display: flex;
+  width: 100%;
+  height: 80%;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.alignment {
+  border-radius: 10px;
+  background-color: #182933;
+  display: flex;
+  margin: 5px 20px;
+  flex-direction: row;
+}
+
+.alignment:hover {
+  background-color: springgreen;
+  color: #0e1b23;
+}
+
+.alignment input {
+  margin-left: 20px;
+  width: 5%;
+}
+
+.alignment label {
+  color: white;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  height: 100%;
+  margin-bottom: 20px;
+}

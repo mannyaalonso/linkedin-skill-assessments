@@ -63,7 +63,7 @@ const App = () => {
             path="/login"
             element={<Login handleUser={handleUser} users={users} />}
           />
-          <Route path="/assessments/:id" element={<Assessment assessments={assessments} />} />
+          <Route path="/assessments/:id" element={<Assessment />} />
         </Routes>
       </main>
     </div>
