@@ -42,6 +42,10 @@
   width: 5%;
 }
 
+.alignment label:hover {
+  color: black;
+}
+
 .alignment label {
   color: white;
   display: flex;
