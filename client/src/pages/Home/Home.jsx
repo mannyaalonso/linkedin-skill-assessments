@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from "react-router-dom"
 import axios from 'axios'
 import './home.css'
 
-const Home = ({ handleUser }) => {
+const Home = ({ handleUser, assessments }) => {
   const [user, setUser] = useState()
-  const [assessments, setAssessments] = useState([])
+  const navigate = useNavigate()
 
   const getUserById = async () => {
     try {
@@ -14,28 +15,18 @@ const Home = ({ handleUser }) => {
         )}`
       )
       setUser(res.data.user)
-      console.log("USER", res.data.user)
     } catch (err) {
       console.log(err)
     }
   }
 
-  const getAssessments = async () => {
-    try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}assessments`
-      )
-      console.log(res.data.assessments)
-      setAssessments(res.data.assessments)
-    } catch (err) {
-      console.log(err)
-    }
-  } 
-
   useEffect(() => {
     getUserById()
-    getAssessments()
   }, [])
+
+  function handleStart(id) {
+    navigate(`/assessments/${id}`)
+  }
 
   return (
     user && (
@@ -56,16 +47,32 @@ const Home = ({ handleUser }) => {
                 <div key={assessment._id} className="card">
                   <div className="headings">
                     <h3>{assessment.title}</h3>
-                    {user.assessments.find((element => element._id === assessment._id)) ? ( //thanks john
+                    {user.assessments.find(
+                      (element) => element._id === assessment._id
+                    ) ? ( //thanks john
                       <h5>PASSED</h5>
                     ) : (
                       <h5>NOT PASSED</h5>
                     )}
                   </div>
                   <p className="card-description">{assessment.description}</p>
-                  {user.assessments.find((element => element._id === assessment._id)) ? 
-                  <button className="button-assess">Retake</button> :
-                  <button className="button-assess">Take Assessment</button>}
+                  {user.assessments.find(
+                    (element) => element._id === assessment._id
+                  ) ? (
+                    <button
+                      onClick={() => handleStart(assessment._id)}
+                      className="button-assess"
+                    >
+                      Retake
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => handleStart(assessment._id)}
+                      className="button-assess"
+                    >
+                      Start
+                    </button>
+                  )}
                 </div>
               ))}
             </div>
