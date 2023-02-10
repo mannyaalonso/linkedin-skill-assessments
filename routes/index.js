@@ -6,6 +6,8 @@ router.get("/", (req, res) => res.send("This is root!"))
 
 router.get("/assessments", controllers.getAllAssessments)
 
+router.get("/assessments/:id", controllers.getAssessmentById)
+
 router.put("/assessments/:id", controllers.updateAssessment)
 
 router.post("/users", controllers.createUser)
