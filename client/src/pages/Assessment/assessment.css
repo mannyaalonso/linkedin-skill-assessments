@@ -1,19 +1,65 @@
-.assess-container {
-  background-color: #e9e9e9;
-  height: 100vh;
+.quiz-header {
+  display: flex;
+  position: relative;
   width: 100%;
+  height: 100px;
+  position: fixed;
+  top: 0;
+}
+
+.img-quiz {
+  position: absolute;
+  object-position: center;
+  object-fit: cover;
+  width: 100%;
+  height: 100%
+}
+
+.quiz-titles {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 100px;
+  width: 100%;
+  position: absolute;
+}
+
+.quiz-h1 {
+  color: white;
+  width: 50%;
+  font-size: 3rem;
+  bottom: 10px;
+  text-align: center;
+}
+
+.quiz-container {
+  background-color: #e9e9e9;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
 }
 
 .quiz-card {
   border-radius: 10px;
   background-color: #0e1b23;
-  width: 700px;
-  margin-top: 20px;
+  width: 900px;
+  margin: 20px 0;
   padding-bottom: 10px;
 }
 
 .quiz-question {
   margin: 20px;
+}
+
+.quiz-img-container {
+  margin: 20px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .choices {
