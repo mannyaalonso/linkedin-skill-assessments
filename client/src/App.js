@@ -6,6 +6,7 @@ import Login from "./pages/Login/Login"
 import Home from "./pages/Home/Home"
 import axios from "axios"
 import "./App.css"
+import Results from "./pages/Results/Results"
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(sessionStorage.getItem("user"))
@@ -64,6 +65,8 @@ const App = () => {
             element={<Login handleUser={handleUser} users={users} />}
           />
           <Route path="/assessments/:id" element={<Assessment />} />
+          <Route path="/results/:id" element={<Results />} />
+
         </Routes>
       </main>
     </div>

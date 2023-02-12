@@ -1,20 +1,21 @@
+import Countdown from "../../components/Countdown"
+import { useNavigate } from "react-router-dom"
 import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react"
 import "./assessment.css"
 import axios from "axios"
-import Countdown from "../../components/Countdown"
 
 const Assessment = () => {
   const [assessment, setAssessment] = useState()
-  let userAnswers = []
-  let answers = []
+  const navigate = useNavigate()
+  const userAnswers = []
+  const answers = []
   let countdown
 
   if (assessment) {
     const today = new Date()
-    countdown = AddMinutesToDate(today, assessment.questions.length * 2)  
+    countdown = AddMinutesToDate(today, assessment.questions.length / 7)
   }
-  
 
   let { id } = useParams()
 
@@ -38,16 +39,27 @@ const Assessment = () => {
     answers[index] = answer
   }
 
-  function handleExit() {
-
-  }
+  function handleExit() {}
 
   function handleSubmit() {
     for (let i = 0; i < assessment.questions.length; i++) {
-      if (userAnswers[i] === null || userAnswers.length !== assessment.questions.length) {
+      if (
+        userAnswers[i] === null ||
+        userAnswers.length !== assessment.questions.length
+      ) {
         return console.log("Not completed")
       }
     }
+
+    let counter = 0
+    for (let i = 0; i < userAnswers.length; i++) {
+      if (userAnswers[i] === answers[i] && userAnswers[i] !== null) {
+        counter++
+      }
+    }
+
+    const results = counter / assessment.questions.length
+    navigate(`/results/${results}`)
   }
 
   return (
@@ -60,12 +72,21 @@ const Assessment = () => {
             alt="header"
           />
           <div className="quiz-titles">
-            <button onClick={handleExit} className="button-profile">Exit</button>
+            <button onClick={handleExit} className="button-profile">
+              Exit
+            </button>
             <div className="quiz-countdown">
               <h1 className="quiz-h1">{assessment.title} Test</h1>
-              <Countdown countdown={countdown}/>
+              <Countdown
+                countdown={countdown}
+                userAnswers={userAnswers}
+                answers={answers}
+                length={assessment.questions.length}
+              />
             </div>
-            <button onClick={handleSubmit} className="button-profile">Submit</button>
+            <button onClick={handleSubmit} className="button-profile">
+              Submit
+            </button>
           </div>
         </header>
         <div className="quiz-container">
@@ -75,7 +96,13 @@ const Assessment = () => {
                 <h3>{questions.prompt}</h3>
               </div>
               <div className="quiz-img-container">
-                {questions.codeUrl !== "" && <img className="quiz-img" src={questions.codeUrl} alt="code" />}
+                {questions.codeUrl !== "" && (
+                  <img
+                    className="quiz-img"
+                    src={questions.codeUrl}
+                    alt="code"
+                  />
+                )}
               </div>
               <div className="choices">
                 {questions.choices.map((choice) => (
