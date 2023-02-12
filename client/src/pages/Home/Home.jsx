@@ -24,6 +24,8 @@ const Home = ({ handleUser, assessments }) => {
     getUserById()
   }, [])
 
+  console.log(assessments)
+
   function handleStart(id) {
     navigate(`/assessments/${id}`)
   }
@@ -46,7 +48,10 @@ const Home = ({ handleUser, assessments }) => {
               {assessments.map((assessment) => (
                 <div key={assessment._id} className="card">
                   <div className="headings">
-                    <h3>{assessment.title}</h3>
+                    <h3>
+                      {assessment.title}{" "}
+                      <span>({assessment.questions.length} questions)</span>{" "}
+                    </h3>
                     {user.assessments.find(
                       (element) => element._id === assessment._id
                     ) ? ( //thanks john

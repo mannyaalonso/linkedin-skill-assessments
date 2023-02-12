@@ -67,6 +67,10 @@
   align-items: center;
 }
 
+.headings span {
+  font-size: .6rem;
+}
+
 h5, h3 {
   color: white;
   margin: 0;
