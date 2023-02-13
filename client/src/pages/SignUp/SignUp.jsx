@@ -132,7 +132,7 @@ const SignUp = ({ handleUser, users }) => {
               id="password"
             />
             <button className="signup-button" type="submit">
-              SEND
+              SIGN UP
             </button>
             {helpText}
           </form>
