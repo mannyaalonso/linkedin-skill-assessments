@@ -6,7 +6,6 @@ import SignUp from "./pages/SignUp/SignUp"
 import Login from "./pages/Login/Login"
 import Home from "./pages/Home/Home"
 import axios from "axios"
-import "./App.css"
 
 const App = () => {
   const [assessments, setAssessments] = useState([])
