@@ -1,33 +1,41 @@
 import Assessment from "./pages/Assessment/Assessment"
 import { Route, Routes } from "react-router-dom"
-import { useState, useEffect } from 'react'
+import { useNavigate } from "react-router-dom"
+import { useState, useEffect } from "react"
 import SignUp from "./pages/SignUp/SignUp"
 import Login from "./pages/Login/Login"
 import Home from "./pages/Home/Home"
 import axios from "axios"
 import "./App.css"
-import Results from "./pages/Results/Results"
 
 const App = () => {
-  const [currentUser, setCurrentUser] = useState(sessionStorage.getItem("user"))
   const [assessments, setAssessments] = useState([])
   const [users, setUsers] = useState()
+  const navigate = useNavigate()
 
-  const handleUser = (id) => {
-    sessionStorage.setItem("user", id)
-    setCurrentUser(id)
+  const handleUser = (action, id) => {
+    if (action === "delete") {
+      deleteUser()
+    } else if (action === "logout") {
+      sessionStorage.removeItem("user")
+    } else if (action === "login") {
+      sessionStorage.setItem("user", id)
+    } else {
+      sessionStorage.setItem("user", id)
+    }
+    startApp()
+    navigate("/")
   }
 
-  const getUsers = async () => {
+  const startApp = async () => {
     try {
+      
       let res = await axios.get(`${process.env.REACT_APP_BASE_URL}users`)
       setUsers(res.data.users)
     } catch (err) {
       console.log(err)
     }
-  }
 
-  const getAssessments = async () => {
     try {
       const res = await axios.get(
         `${process.env.REACT_APP_BASE_URL}assessments`
@@ -36,18 +44,36 @@ const App = () => {
     } catch (err) {
       console.log(err)
     }
-  } 
+  }
+
+  const deleteUser = async () => {
+    try {
+      await axios.delete(
+        `${process.env.REACT_APP_BASE_URL}users/${sessionStorage.getItem(
+          "user"
+        )}`
+      )
+      for (let i = 0; i < users.length; i++) {
+        if (users[i]._id === sessionStorage.getItem("user")) {
+          users.splice(i, 1)
+          setUsers(users)
+        }
+      }
+      sessionStorage.removeItem("user")
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   useEffect(() => {
-    getUsers()
-    getAssessments()
+    startApp()
   }, [])
 
   return (
     <div>
       <main>
         <Routes>
-          {currentUser ? (
+          {sessionStorage.getItem("user") ? (
             <Route
               path="/"
               element={
@@ -64,9 +90,10 @@ const App = () => {
             path="/login"
             element={<Login handleUser={handleUser} users={users} />}
           />
-          <Route path="/assessments/:id" element={<Assessment />} />
-          <Route path="/results/:id" element={<Results />} />
-
+          <Route
+            path="/assessments/:id"
+            element={<Assessment users={users} />}
+          />
         </Routes>
       </main>
     </div>
