@@ -26,7 +26,7 @@ const Login = ({ handleUser, users }) => {
     if (formState.email && formState.password) {
       for (let i = 0; i < users.length; i++) {
         if (formState.email === users[i].email && formState.password === users[i].password) {
-          handleUser(users[i]._id)
+          handleUser("login", users[i]._id)
           navigate("/")
         } else {
           setHelpText(

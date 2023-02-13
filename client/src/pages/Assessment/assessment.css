@@ -1,3 +1,4 @@
+
 .quiz-header {
   display: flex;
   position: relative;
@@ -63,7 +64,19 @@
 }
 
 .quiz-question {
-  margin: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quiz-question h4 {
+  font-size: 1.3rem;
+  color: white;
+  display: inline-block;
+  word-wrap: break-word;
+  height: 70px;
+  width: 800px;
 }
 
 .quiz-img-container {

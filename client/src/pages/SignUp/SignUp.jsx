@@ -44,7 +44,7 @@ const SignUp = ({ handleUser, users }) => {
               formState
             )
             setFormState(initialState)
-            handleUser(res.data.user._id)
+            handleUser("signup", res.data.user._id)
           } catch (err) {
             console.log(err)
           }

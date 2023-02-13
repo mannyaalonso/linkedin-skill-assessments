@@ -68,13 +68,16 @@
 }
 
 .headings span {
-  font-size: .6rem;
+  font-size: .65rem;
 }
 
 h5, h3 {
+  display: flex;
+  align-items: center;
   color: white;
   margin: 0;
-  margin-right: 20px;;
+  margin-right: 20px;
+  white-space: pre;
 }
 
 .card-description {

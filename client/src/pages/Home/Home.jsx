@@ -24,9 +24,7 @@ const Home = ({ handleUser, assessments }) => {
     getUserById()
   }, [])
 
-  console.log(assessments)
-
-  function handleStart(id) {
+  const handleStart = (id) => {
     navigate(`/assessments/${id}`)
   }
 
@@ -49,7 +47,7 @@ const Home = ({ handleUser, assessments }) => {
                 <div key={assessment._id} className="card">
                   <div className="headings">
                     <h3>
-                      {assessment.title}{" "}
+                      {assessment.title}{"  "}
                       <span>({assessment.questions.length} questions)</span>{" "}
                     </h3>
                     {user.assessments.find(
@@ -98,9 +96,9 @@ const Home = ({ handleUser, assessments }) => {
                 <h5>{user.assessments.length}</h5>
               </div>
               <div className="button-container">
-                <button className="button-profile">Delete Account</button>
+                <button onClick={() => handleUser("delete", user._id)} className="button-profile">Delete Account</button>
                 <button
-                  onClick={() => handleUser(null)}
+                  onClick={() => handleUser("logout", user._id)}
                   className="button-profile"
                 >
                   Logout
