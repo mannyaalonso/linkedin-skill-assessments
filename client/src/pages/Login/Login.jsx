@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { useState } from "react"
-import "./login.css"
+import "../../index.css"
 
 const Login = ({ handleUser, users }) => {
   const navigate = useNavigate();
@@ -62,7 +62,7 @@ const Login = ({ handleUser, users }) => {
             Pass Your <span className="title">LinkedIn</span> Assessments
           </h1>
         </div>
-        <img className="img-login"
+        <img className="img-signup"
           src="https://images.unsplash.com/photo-1606836606933-94d15b61617b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80"
           alt="img"
         />
