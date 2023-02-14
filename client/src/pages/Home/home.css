@@ -24,7 +24,8 @@
     font-size: 3rem;
     position: absolute;
     bottom: 10px;
-    left: 50px;
+    width: 100%;
+    text-align: center;
   }
 
   .main {
@@ -125,6 +126,7 @@
 
   .profile {
     position: relative;
+    margin-bottom: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
