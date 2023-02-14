@@ -30,7 +30,7 @@
 
 ##### Sign up and sign in as a new user and then arrive at the dashboard where you'll see a list of assessments you can take.
 
-##### A Trello board was used to keep track of development progress and can be viewed [here](coming soon).
+##### A Trello board was used to keep track of development progress and can be viewed [here](https://trello.com/b/JxXNnl0C/linkedin-skill-assessments).
 
 ##### The project itself was deployed and can be viewed [here](coming soon).
 
