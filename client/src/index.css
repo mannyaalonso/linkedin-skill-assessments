@@ -8,6 +8,7 @@ body {
  @media only screen and (min-width: 280px) and (max-width: 767px)  {
   .container {
    height: 100vh;
+   background-color: white;
   }
 
   .img-container {
@@ -122,6 +123,7 @@ body {
   .container {
     height: 100vh;
     display: flex;
+    background-color: white;
   }
 
   .img-container {
@@ -235,6 +237,7 @@ body {
   .container {
     height: 100vh;
     display: flex;
+    background-color: white;
   }
 
   .img-container {
