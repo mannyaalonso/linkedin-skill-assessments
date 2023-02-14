@@ -2,6 +2,7 @@
 body {
   margin: 0;
   font-family: "Poppins";
+  background-color: aliceblue;
 }
 
  @media only screen and (min-width: 280px) and (max-width: 767px)  {
