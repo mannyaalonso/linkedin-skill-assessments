@@ -29,7 +29,7 @@ const Assessment = ({ users }) => {
   const getAssessmentById = async () => {
     try {
       const res = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}assessments/${id}`
+        `${process.env.REACT_APP_BASE_URL}/assessments/${id}`
       )
       setAssessment(res.data.assessment)
     } catch (err) {
