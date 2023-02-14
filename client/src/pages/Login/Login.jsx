@@ -62,8 +62,9 @@ const Login = ({ handleUser, users }) => {
             Pass Your <span className="title">LinkedIn</span> Assessments
           </h1>
         </div>
-        <img className="img-signup"
-          src="https://images.unsplash.com/photo-1606836606933-94d15b61617b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80"
+        <img
+          className="img-signup"
+          src="https://images.unsplash.com/photo-1670272506220-f8332b178148?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
           alt="img"
         />
       </div>
@@ -76,7 +77,7 @@ const Login = ({ handleUser, users }) => {
             <input
               onChange={handleChange}
               value={formState.email}
-              type="text"
+              type="email"
               id="email"
             />
             <label htmlFor="password">Password</label>

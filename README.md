@@ -38,7 +38,8 @@
 
 ### **_Screenshots_**
 
-![Login](https://i.imgur.com/cBqyuxa.png)
+![Login](https://i.imgur.com/SfxF4rD.png)
+![Signup](https://i.imgur.com/ajReDTb.png)
 ![Dashboard](https://i.imgur.com/ZTKXgAg.png)
 ![Assessment](https://i.imgur.com/pHAqzz7.png)
 
