@@ -28,10 +28,8 @@ const Assessment = ({ users }) => {
 
   const getAssessmentById = async () => {
     try {
-      const res = await axios.get(
-        `/api/assessments/${id}`
-      )
-      console.log(res)
+      const res = await axios.get(`/api/assessments/${id}`)
+      //console.log(res)
       setAssessment(res.data.assessment)
     } catch (err) {
       console.log(err)
@@ -70,21 +68,24 @@ const Assessment = ({ users }) => {
 
     const results = counter / assessment.questions.length
     if (results > 0.7) {
-      user[1].push(assessment._id)
+      console.log(user)
+      for (let i = 0; i < user[0].length; i++) {
+        console.log(user[0][i])
+        if (user[0][i] === assessment._id) {
+          return navigate(`/`)
+        }
+      }
+      user[0].push(assessment._id)
       postResult()
-    } 
-    navigate(`/`)
+      navigate(`/`)
+    }
   }
 
   const postResult = async () => {
     try {
-      await axios.put(
-        `/api/users/${sessionStorage.getItem(
-          "user"
-        )}`, {
-          assessments: [...user[1]]
-        }
-      )
+      await axios.put(`/api/users/${sessionStorage.getItem("user")}`, {
+        assessments: [...user[0]],
+      })
     } catch (err) {
       console.log(err)
     }
@@ -105,10 +106,7 @@ const Assessment = ({ users }) => {
             </button>
             <div className="quiz-countdown">
               <h1 className="quiz-h1">{assessment.title} Test</h1>
-              <Countdown
-                handleSubmit={handleSubmit}
-                countdown={countdown}
-              />
+              <Countdown handleSubmit={handleSubmit} countdown={countdown} />
             </div>
             <button onClick={handleSubmit} className="button-profile">
               Submit
