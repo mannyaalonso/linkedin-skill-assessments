@@ -1,14 +1,13 @@
 import Assessment from "./pages/Assessment/Assessment"
 import { Route, Routes } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import SignUp from "./pages/SignUp/SignUp"
 import Login from "./pages/Login/Login"
 import Home from "./pages/Home/Home"
 import axios from "axios"
 
 const App = () => {
-  const [assessments, setAssessments] = useState([])
   const [users, setUsers] = useState()
   const navigate = useNavigate()
 
@@ -23,26 +22,7 @@ const App = () => {
     } else {
       sessionStorage.setItem("user", id)
     }
-    startApp()
     navigate("/")
-  }
-
-  /*----------GET USERS----------*/
-  const startApp = async () => {
-    try {
-      let res = await axios.get(`/api/users`)
-      setUsers(res.data.users)
-    } catch (err) {
-      console.log(err)
-    }
-
-    /*----------GET ASSESSMENTS----------*/
-    try {
-      const res = await axios.get(`/api/assessments`)
-      setAssessments(res.data.assessments)
-    } catch (err) {
-      console.log(err)
-    }
   }
 
   /*----------DELETE USER----------*/
@@ -61,11 +41,6 @@ const App = () => {
     }
   }
 
-  /*----------RUN USEEFFECT ONCE----------*/
-  useEffect(() => {
-    startApp()
-  }, [])
-
   /*----------RENDER----------*/
   return (
     <div>
@@ -75,22 +50,22 @@ const App = () => {
             <Route
               path="/"
               element={
-                <Home handleUser={handleUser} assessments={assessments} />
+                <Home handleUser={handleUser} />
               }
             />
           ) : (
             <Route
               path="/"
-              element={<SignUp handleUser={handleUser} users={users} />}
+              element={<SignUp handleUser={handleUser} />}
             />
           )}
           <Route
             path="/login"
-            element={<Login handleUser={handleUser} users={users} />}
+            element={<Login handleUser={handleUser} />}
           />
           <Route
             path="/assessments/:id"
-            element={<Assessment users={users} />}
+            element={<Assessment />}
           />
         </Routes>
       </main>

@@ -5,21 +5,15 @@ import { useState, useEffect } from "react"
 import "./assessment.css"
 import axios from "axios"
 
-const Assessment = ({ users }) => {
+const Assessment = () => {
   const [assessment, setAssessment] = useState()
+  const [user, setUser] = useState({})
+
   const navigate = useNavigate()
   let { id } = useParams()
   const userAnswers = []
   const answers = []
   let countdown
-
-  /*----------GET USERS ASSESSMENTS BASED ON ID----------*/
-  const user = users.map((user) => {
-    if (user._id === sessionStorage.getItem("user")) {
-      return user.assessments
-    }
-    return []
-  })
 
   /*----------SETUP COUNTDOWN BASED ON ASSESSMENT QUESTION LENGTH----------*/
   if (assessment) {
@@ -27,7 +21,7 @@ const Assessment = ({ users }) => {
     countdown = AddMinutesToDate(today, assessment.questions.length * 2)
   }
 
-  /*----------GET ALL ASSESSMENTS----------*/
+  /*----------GET ASSESSMENT BY ID----------*/
   const getAssessmentById = async () => {
     try {
       const res = await axios.get(`/api/assessments/${id}`)
@@ -37,9 +31,22 @@ const Assessment = ({ users }) => {
     }
   }
 
+  /*----------GET USER BY ID----------*/
+  const getUserById = async () => {
+    try {
+      const res = await axios.get(
+        `/api/users/${sessionStorage.getItem("user")}`
+      )
+      setUser(res.data.user)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   /*----------RUN ON RENDER ONCE----------*/
   useEffect(() => {
     getAssessmentById()
+    getUserById()
   }, [])
 
   /*----------KEEP TRACK OF USER ANSWER AND ACTUAL ANSWERS----------*/
@@ -75,12 +82,12 @@ const Assessment = ({ users }) => {
     /*----------IF USERS SCORES 70%+ & DOESN'T MATCH PREV ID THEN UPDATE----------*/
     const results = counter / assessment.questions.length
     if (results > 0.7) {
-      for (let i = 0; i < user[0].length; i++) {
-        if (user[0][i] === assessment._id) {
+      for (let i = 0; i < user.assessments.length; i++) {
+        if (user.assessments[i]._id === assessment._id) {
           return navigate(`/`)
         }
       }
-      user[0].push(assessment._id)
+      user.assessments.push(assessment._id)
       postResult()
       navigate(`/`)
     }
@@ -90,7 +97,7 @@ const Assessment = ({ users }) => {
   const postResult = async () => {
     try {
       await axios.put(`/api/users/${sessionStorage.getItem("user")}`, {
-        assessments: [...user[0]],
+        assessments: [...user.assessments],
       })
     } catch (err) {
       console.log(err)

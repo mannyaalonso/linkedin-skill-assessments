@@ -3,9 +3,20 @@ import { useNavigate } from "react-router-dom"
 import axios from 'axios'
 import './home.css'
 
-const Home = ({ handleUser, assessments }) => {
+const Home = ({ handleUser }) => {
+  const [assessments, setAssessments] = useState([])
   const [user, setUser] = useState()
   const navigate = useNavigate()
+
+  /*----------GET ASSESSMENTS----------*/
+  const getAssessments = async () => {
+    try {
+      const res = await axios.get(`/api/assessments`)
+      setAssessments(res.data.assessments)
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   /*----------GET USER BY ID----------*/
   const getUserById = async () => {
@@ -22,6 +33,7 @@ const Home = ({ handleUser, assessments }) => {
   /*----------RUN USEEFFECT ONCE----------*/
   useEffect(() => {
     getUserById()
+    getAssessments()
   }, [])
 
   /*----------GSTART AND NAVIAGTE TO ASSESSMENT BASED ON ID----------*/

@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import axios from "axios"
 import "../../index.css"
 
-const Login = ({ handleUser, users }) => {
+const Login = ({ handleUser}) => {
+  const [users, setUsers] = useState()
   const navigate = useNavigate()
 
   /*----------INITIAL STATE----------*/
@@ -11,6 +13,16 @@ const Login = ({ handleUser, users }) => {
     email: "",
     password: "",
     assesments: [],
+  }
+
+  /*----------GET USERS----------*/
+  const getUsers = async () => {
+    try {
+      let res = await axios.get(`/api/users`)
+      setUsers(res.data.users)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   /*----------FORM STATE AND HELPER TEXT----------*/
@@ -61,6 +73,11 @@ const Login = ({ handleUser, users }) => {
     )
     setFormState({ ...formState, [e.target.id]: e.target.value })
   }
+
+  /*----------RUN USEEFFECT ONCE----------*/
+  useEffect(() => {
+    getUsers()
+  })
 
   /*----------RENDER----------*/
   return (
