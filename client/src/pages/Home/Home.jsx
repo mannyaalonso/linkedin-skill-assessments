@@ -10,7 +10,7 @@ const Home = ({ handleUser, assessments }) => {
   const getUserById = async () => {
     try {
       const res = await axios.get(
-        `/users/${sessionStorage.getItem(
+        `/api/users/${sessionStorage.getItem(
           "user"
         )}`
       )
@@ -25,7 +25,7 @@ const Home = ({ handleUser, assessments }) => {
   }, [])
 
   const handleStart = (id) => {
-    navigate(`/assessments/${id}`)
+    navigate(`/api/assessments/${id}`)
   }
 
   return (

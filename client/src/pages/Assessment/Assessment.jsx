@@ -29,7 +29,7 @@ const Assessment = ({ users }) => {
   const getAssessmentById = async () => {
     try {
       const res = await axios.get(
-        `/assessments/${id}`
+        `/api/assessments/${id}`
       )
       setAssessment(res.data.assessment)
     } catch (err) {
@@ -78,7 +78,7 @@ const Assessment = ({ users }) => {
   const postResult = async () => {
     try {
       await axios.put(
-        `/users/${sessionStorage.getItem(
+        `/api/users/${sessionStorage.getItem(
           "user"
         )}`, {
           assessments: [...user[1]]

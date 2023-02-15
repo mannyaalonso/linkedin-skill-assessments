@@ -29,7 +29,7 @@ const App = () => {
   const startApp = async () => {
     try {
       
-      let res = await axios.get(`/users`)
+      let res = await axios.get(`/api/users`)
       setUsers(res.data.users)
     } catch (err) {
       console.log(err)
@@ -37,7 +37,7 @@ const App = () => {
 
     try {
       const res = await axios.get(
-        `/assessments`
+        `/api/assessments`
       )
       setAssessments(res.data.assessments)
     } catch (err) {
@@ -48,7 +48,7 @@ const App = () => {
   const deleteUser = async () => {
     try {
       await axios.delete(
-        `/users/${sessionStorage.getItem(
+        `/api/users/${sessionStorage.getItem(
           "user"
         )}`
       )
