@@ -68,9 +68,7 @@ const Assessment = ({ users }) => {
 
     const results = counter / assessment.questions.length
     if (results > 0.7) {
-      console.log(user)
       for (let i = 0; i < user[0].length; i++) {
-        console.log(user[0][i])
         if (user[0][i] === assessment._id) {
           return navigate(`/`)
         }
