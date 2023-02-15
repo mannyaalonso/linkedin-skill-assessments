@@ -12,6 +12,7 @@ const App = () => {
   const [users, setUsers] = useState()
   const navigate = useNavigate()
 
+  /*----------HANDLE CONDITIONAL RENDERING----------*/
   const handleUser = (action, id) => {
     if (action === "delete") {
       deleteUser()
@@ -26,32 +27,28 @@ const App = () => {
     navigate("/")
   }
 
+  /*----------GET USERS----------*/
   const startApp = async () => {
     try {
-      
       let res = await axios.get(`/api/users`)
       setUsers(res.data.users)
     } catch (err) {
       console.log(err)
     }
 
+    /*----------GET ASSESSMENTS----------*/
     try {
-      const res = await axios.get(
-        `/api/assessments`
-      )
+      const res = await axios.get(`/api/assessments`)
       setAssessments(res.data.assessments)
     } catch (err) {
       console.log(err)
     }
   }
 
+  /*----------DELETE USER----------*/
   const deleteUser = async () => {
     try {
-      await axios.delete(
-        `/api/users/${sessionStorage.getItem(
-          "user"
-        )}`
-      )
+      await axios.delete(`/api/users/${sessionStorage.getItem("user")}`)
       for (let i = 0; i < users.length; i++) {
         if (users[i]._id === sessionStorage.getItem("user")) {
           users.splice(i, 1)
@@ -64,10 +61,12 @@ const App = () => {
     }
   }
 
+  /*----------RUN USEEFFECT ONCE----------*/
   useEffect(() => {
     startApp()
   }, [])
 
+  /*----------RENDER----------*/
   return (
     <div>
       <main>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 
 const Countdown = ({ countdown, handleSubmit }) => {
+  /*----------CALCULATE TOAL TIME BASED ON NUMBER OF QUESTIONS PASSED DOWN---------*/
   const calculateTimeLeft = () => {
     const difference = +countdown - +new Date()
     let timeLeft = {}
@@ -19,12 +20,14 @@ const Countdown = ({ countdown, handleSubmit }) => {
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft())
 
+  /*----------RUN USEEFFECT EVERY SECOND----------*/
   useEffect(() => {
     setTimeout(() => {
       setTimeLeft(calculateTimeLeft())
     }, 1000)
   })
 
+  /*----------RENDER----------*/
   return (
     timeLeft.seconds >= 0 && (
       <div className="countdown">

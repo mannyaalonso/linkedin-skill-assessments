@@ -8,10 +8,12 @@ import axios from "axios"
 const Assessment = ({ users }) => {
   const [assessment, setAssessment] = useState()
   const navigate = useNavigate()
+  let { id } = useParams()
   const userAnswers = []
   const answers = []
   let countdown
 
+  /*----------GET USERS ASSESSMENTS BASED ON ID----------*/
   const user = users.map((user) => {
     if (user._id === sessionStorage.getItem("user")) {
       return user.assessments
@@ -19,36 +21,39 @@ const Assessment = ({ users }) => {
     return []
   })
 
+  /*----------SETUP COUNTDOWN BASED ON ASSESSMENT QUESTION LENGTH----------*/
   if (assessment) {
     const today = new Date()
     countdown = AddMinutesToDate(today, assessment.questions.length * 2)
   }
 
-  let { id } = useParams()
-
+  /*----------GET ALL ASSESSMENTS----------*/
   const getAssessmentById = async () => {
     try {
       const res = await axios.get(`/api/assessments/${id}`)
-      //console.log(res)
       setAssessment(res.data.assessment)
     } catch (err) {
       console.log(err)
     }
   }
 
+  /*----------RUN ON RENDER ONCE----------*/
   useEffect(() => {
     getAssessmentById()
   }, [])
 
+  /*----------KEEP TRACK OF USER ANSWER AND ACTUAL ANSWERS----------*/
   const onChange = (choice, answer, index) => {
     userAnswers[index] = choice
     answers[index] = answer
   }
 
+  /*----------EXIT ON CLICK----------*/
   const handleExit = () => {
     navigate(`/`)
   }
 
+  /*----------SUBMIT ON CLICK----------*/
   const handleSubmit = () => {
     for (let i = 0; i < assessment.questions.length; i++) {
       if (
@@ -59,6 +64,7 @@ const Assessment = ({ users }) => {
       }
     }
 
+    /*----------INCREASE COUNTER WHEN USER ANSWER MATCHES ANSWER----------*/
     let counter = 0
     for (let i = 0; i < userAnswers.length; i++) {
       if (userAnswers[i] === answers[i] && userAnswers[i] !== null) {
@@ -66,6 +72,7 @@ const Assessment = ({ users }) => {
       }
     }
 
+    /*----------IF USERS SCORES 70%+ & DOESN'T MATCH PREV ID THEN UPDATE----------*/
     const results = counter / assessment.questions.length
     if (results > 0.7) {
       for (let i = 0; i < user[0].length; i++) {
@@ -79,6 +86,7 @@ const Assessment = ({ users }) => {
     }
   }
 
+  /*----------UPDATE USER ASSESSMENT ARRAY----------*/
   const postResult = async () => {
     try {
       await axios.put(`/api/users/${sessionStorage.getItem("user")}`, {
@@ -89,6 +97,7 @@ const Assessment = ({ users }) => {
     }
   }
 
+  /*----------RENDER----------*/
   return (
     assessment && (
       <div>
@@ -149,6 +158,7 @@ const Assessment = ({ users }) => {
 
 export default Assessment
 
+ /*----------HANDY FUNCTION TO GET FUTURE TIME----------*/
 function AddMinutesToDate(date, minutes) {
   return new Date(date.getTime() + minutes * 60000)
 }

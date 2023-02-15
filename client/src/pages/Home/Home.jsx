@@ -7,12 +7,11 @@ const Home = ({ handleUser, assessments }) => {
   const [user, setUser] = useState()
   const navigate = useNavigate()
 
+  /*----------GET USER BY ID----------*/
   const getUserById = async () => {
     try {
       const res = await axios.get(
-        `/api/users/${sessionStorage.getItem(
-          "user"
-        )}`
+        `/api/users/${sessionStorage.getItem("user")}`
       )
       setUser(res.data.user)
     } catch (err) {
@@ -20,14 +19,17 @@ const Home = ({ handleUser, assessments }) => {
     }
   }
 
+  /*----------RUN USEEFFECT ONCE----------*/
   useEffect(() => {
     getUserById()
   }, [])
 
+  /*----------GSTART AND NAVIAGTE TO ASSESSMENT BASED ON ID----------*/
   const handleStart = (id) => {
     navigate(`/assessments/${id}`)
   }
 
+  /*----------RENDER----------*/
   return (
     user && (
       <div className="home-container">
@@ -47,8 +49,11 @@ const Home = ({ handleUser, assessments }) => {
                 <div key={assessment._id} className="card">
                   <div className="headings">
                     <h3>
-                      {assessment.title}{"  "}
-                      <span>({assessment.questions.length} questions)</span>{" "}
+                      {assessment.title}
+                      {"  "}
+                      <span>
+                        ({assessment.questions.length} questions)
+                      </span>{" "}
                     </h3>
                     {user.assessments.find(
                       (element) => element._id === assessment._id
@@ -96,7 +101,12 @@ const Home = ({ handleUser, assessments }) => {
                 <h5>{user.assessments.length}</h5>
               </div>
               <div className="button-container">
-                <button onClick={() => handleUser("delete", user._id)} className="button-profile">Delete Account</button>
+                <button
+                  onClick={() => handleUser("delete", user._id)}
+                  className="button-profile"
+                >
+                  Delete Account
+                </button>
                 <button
                   onClick={() => handleUser("logout", user._id)}
                   className="button-profile"

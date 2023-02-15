@@ -4,6 +4,7 @@ import axios from "axios"
 import "../../index.css"
 
 const SignUp = ({ handleUser, users }) => {
+  /*----------INITIAL STATE----------*/
   const initialState = {
     name: "",
     email: "",
@@ -11,6 +12,7 @@ const SignUp = ({ handleUser, users }) => {
     assesments: [],
   }
 
+  /*----------FORM STATE AND HELPER TEXT----------*/
   const [formState, setFormState] = useState(initialState)
   const [helpText, setHelpText] = useState(
     <p className="account">
@@ -21,6 +23,7 @@ const SignUp = ({ handleUser, users }) => {
     </p>
   )
 
+  /*----------ERROR CHECK AND CREATE USER----------*/
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (formState.name && formState.email && formState.password) {
@@ -39,10 +42,7 @@ const SignUp = ({ handleUser, users }) => {
       if (validateEmail(formState.email)) {
         if (formState.password.length > 7) {
           try {
-            const res = await axios.post(
-              `/api/users`,
-              formState
-            )
+            const res = await axios.post(`/api/users`, formState)
             setFormState(initialState)
             handleUser("signup", res.data.user._id)
           } catch (err) {
@@ -92,6 +92,7 @@ const SignUp = ({ handleUser, users }) => {
     setFormState({ ...formState, [e.target.id]: e.target.value })
   }
 
+  /*----------RENDER----------*/
   return (
     <div className="container">
       <div className="img-container">

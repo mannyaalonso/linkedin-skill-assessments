@@ -4,13 +4,16 @@ import { useState } from "react"
 import "../../index.css"
 
 const Login = ({ handleUser, users }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+
+  /*----------INITIAL STATE----------*/
   const initialState = {
     email: "",
     password: "",
     assesments: [],
   }
 
+  /*----------FORM STATE AND HELPER TEXT----------*/
   const [formState, setFormState] = useState(initialState)
   const [helpText, setHelpText] = useState(
     <p className="account">
@@ -21,17 +24,21 @@ const Login = ({ handleUser, users }) => {
     </p>
   )
 
+  /*----------CHECK IF EMAIL AND PASSWORD MATCH FROM USERS ARRAY----------*/
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (formState.email && formState.password) {
       for (let i = 0; i < users.length; i++) {
-        if (formState.email === users[i].email && formState.password === users[i].password) {
+        if (
+          formState.email === users[i].email &&
+          formState.password === users[i].password
+        ) {
           handleUser("login", users[i]._id)
           navigate("/")
         } else {
           setHelpText(
             <p className="account">
-             Please verify email and password
+              Please verify email and password
               <Link to={"/"}>
                 <span> Sign up </span>
               </Link>
@@ -42,6 +49,7 @@ const Login = ({ handleUser, users }) => {
     }
   }
 
+  /*----------SET FORM STATE AND RESET HELP TEXT----------*/
   const handleChange = (e) => {
     setHelpText(
       <p className="account">
@@ -54,6 +62,7 @@ const Login = ({ handleUser, users }) => {
     setFormState({ ...formState, [e.target.id]: e.target.value })
   }
 
+  /*----------RENDER----------*/
   return (
     <div className="container">
       <div className="img-container">
