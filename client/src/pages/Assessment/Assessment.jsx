@@ -31,6 +31,7 @@ const Assessment = ({ users }) => {
       const res = await axios.get(
         `/api/assessments/${id}`
       )
+      console.log(res)
       setAssessment(res.data.assessment)
     } catch (err) {
       console.log(err)
