@@ -25,7 +25,7 @@ const Home = ({ handleUser, assessments }) => {
   }, [])
 
   const handleStart = (id) => {
-    navigate(`/api/assessments/${id}`)
+    navigate(`/assessments/${id}`)
   }
 
   return (
