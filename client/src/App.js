@@ -29,7 +29,7 @@ const App = () => {
   const startApp = async () => {
     try {
       
-      let res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users`)
+      let res = await axios.get(`/users`)
       setUsers(res.data.users)
     } catch (err) {
       console.log(err)
@@ -37,7 +37,7 @@ const App = () => {
 
     try {
       const res = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/assessments`
+        `/assessments`
       )
       setAssessments(res.data.assessments)
     } catch (err) {
@@ -48,7 +48,7 @@ const App = () => {
   const deleteUser = async () => {
     try {
       await axios.delete(
-        `${process.env.REACT_APP_BASE_URL}/users/${sessionStorage.getItem(
+        `/users/${sessionStorage.getItem(
           "user"
         )}`
       )

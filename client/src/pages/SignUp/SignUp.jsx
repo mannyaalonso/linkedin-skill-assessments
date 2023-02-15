@@ -40,7 +40,7 @@ const SignUp = ({ handleUser, users }) => {
         if (formState.password.length > 7) {
           try {
             const res = await axios.post(
-              `${process.env.REACT_APP_BASE_URL}/users`,
+              `/users`,
               formState
             )
             setFormState(initialState)

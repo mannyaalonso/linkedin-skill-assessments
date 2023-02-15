@@ -29,7 +29,7 @@ const Assessment = ({ users }) => {
   const getAssessmentById = async () => {
     try {
       const res = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/assessments/${id}`
+        `/assessments/${id}`
       )
       setAssessment(res.data.assessment)
     } catch (err) {
@@ -78,7 +78,7 @@ const Assessment = ({ users }) => {
   const postResult = async () => {
     try {
       await axios.put(
-        `${process.env.REACT_APP_BASE_URL}users/${sessionStorage.getItem(
+        `/users/${sessionStorage.getItem(
           "user"
         )}`, {
           assessments: [...user[1]]
