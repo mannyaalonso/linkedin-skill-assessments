@@ -11,7 +11,6 @@ const SignUp = ({ handleUser }) => {
     name: "",
     email: "",
     password: "",
-    assesments: [],
   }
 
   /*----------GET USERS----------*/
@@ -23,6 +22,8 @@ const SignUp = ({ handleUser }) => {
       console.log(err)
     }
   }
+
+  console.log(users)
 
   /*----------FORM STATE AND HELPER TEXT----------*/
   const [formState, setFormState] = useState(initialState)

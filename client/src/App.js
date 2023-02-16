@@ -13,6 +13,7 @@ const App = () => {
 
   /*----------HANDLE CONDITIONAL RENDERING----------*/
   const handleUser = (action, id) => {
+    getUsers()
     if (action === "delete") {
       deleteUser()
     } else if (action === "logout") {
@@ -23,6 +24,16 @@ const App = () => {
       sessionStorage.setItem("user", id)
     }
     navigate("/")
+  }
+
+  /*----------GET USERS----------*/
+  const getUsers = async () => {
+    try {
+      let res = await axios.get(`/api/users`)
+      setUsers(res.data.users)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   /*----------DELETE USER----------*/
@@ -47,26 +58,12 @@ const App = () => {
       <main>
         <Routes>
           {sessionStorage.getItem("user") ? (
-            <Route
-              path="/"
-              element={
-                <Home handleUser={handleUser} />
-              }
-            />
+            <Route path="/" element={<Home handleUser={handleUser} />} />
           ) : (
-            <Route
-              path="/"
-              element={<SignUp handleUser={handleUser} />}
-            />
+            <Route path="/" element={<SignUp handleUser={handleUser} />} />
           )}
-          <Route
-            path="/login"
-            element={<Login handleUser={handleUser} />}
-          />
-          <Route
-            path="/assessments/:id"
-            element={<Assessment />}
-          />
+          <Route path="/login" element={<Login handleUser={handleUser} />} />
+          <Route path="/assessments/:id" element={<Assessment />} />
         </Routes>
       </main>
     </div>
