@@ -107,7 +107,7 @@ const SignUp = ({ handleUser }) => {
   /*----------RUN USEEFFECT ONCE----------*/
   useEffect(() => {
     getUsers()
-  })
+  }, [])
 
   /*----------RENDER----------*/
   return (

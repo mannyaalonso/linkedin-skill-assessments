@@ -77,7 +77,7 @@ const Login = ({ handleUser}) => {
   /*----------RUN USEEFFECT ONCE----------*/
   useEffect(() => {
     getUsers()
-  })
+  }, [])
 
   /*----------RENDER----------*/
   return (
