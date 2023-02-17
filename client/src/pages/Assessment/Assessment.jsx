@@ -113,7 +113,7 @@ const Assessment = () => {
             </button>
             <div className="quiz-countdown">
               <h1 className="quiz-h1">{assessment.title} Test</h1>
-              <Countdown postResult={postResult} countdown={countdown} />
+              {/* <Countdown postResult={postResult} countdown={countdown} /> */}
             </div>
             <button onClick={handleSubmit} className="button-profile">
               Submit

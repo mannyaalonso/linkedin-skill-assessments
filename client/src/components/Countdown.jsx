@@ -28,7 +28,7 @@ const Countdown = ({ countdown, postResult }) => {
     setTimeout(() => {
       setTimeLeft(calculateTimeLeft())
     }, 1000)
-  })
+  }, [])
 
   /*----------RENDER----------*/
   return (
