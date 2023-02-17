@@ -18,7 +18,7 @@ const Assessment = () => {
   /*----------SETUP COUNTDOWN BASED ON ASSESSMENT QUESTION LENGTH----------*/
   if (assessment) {
     const today = new Date()
-    countdown = AddMinutesToDate(today, assessment.questions.length / 20)
+    countdown = AddMinutesToDate(today, assessment.questions.length * 2)
   }
 
   /*----------GET ASSESSMENT BY ID----------*/
