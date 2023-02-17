@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
-const Countdown = ({ countdown, handleSubmit }) => {
+const Countdown = ({ countdown, postResult }) => {
+  const navigate = useNavigate()
   /*----------CALCULATE TOAL TIME BASED ON NUMBER OF QUESTIONS PASSED DOWN---------*/
   const calculateTimeLeft = () => {
     const difference = +countdown - +new Date()
@@ -13,7 +15,8 @@ const Countdown = ({ countdown, handleSubmit }) => {
       }
     }
     if (timeLeft.seconds === 0) {
-      handleSubmit()
+      console.log("Time")
+      postResult()
     }
     return timeLeft
   }

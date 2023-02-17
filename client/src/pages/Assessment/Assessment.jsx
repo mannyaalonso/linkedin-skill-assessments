@@ -18,7 +18,7 @@ const Assessment = () => {
   /*----------SETUP COUNTDOWN BASED ON ASSESSMENT QUESTION LENGTH----------*/
   if (assessment) {
     const today = new Date()
-    countdown = AddMinutesToDate(today, assessment.questions.length * 2)
+    countdown = AddMinutesToDate(today, assessment.questions.length / 20)
   }
 
   /*----------GET ASSESSMENT BY ID----------*/
@@ -62,15 +62,11 @@ const Assessment = () => {
 
   /*----------SUBMIT ON CLICK----------*/
   const handleSubmit = () => {
-    for (let i = 0; i < assessment.questions.length; i++) {
-      if (
-        userAnswers[i] === null ||
-        userAnswers.length !== assessment.questions.length
-      ) {
-        return
-      }
-    }
+    postResult()
+  }
 
+  /*----------UPDATE USER ASSESSMENT ARRAY----------*/
+  const postResult = async () => {
     /*----------INCREASE COUNTER WHEN USER ANSWER MATCHES ANSWER----------*/
     let counter = 0
     for (let i = 0; i < userAnswers.length; i++) {
@@ -88,19 +84,16 @@ const Assessment = () => {
         }
       }
       user.assessments.push(assessment._id)
-      postResult()
+      try {
+        await axios.put(`/api/users/${sessionStorage.getItem("user")}`, {
+          assessments: [...user.assessments],
+        })
+        navigate(`/`)
+      } catch (err) {
+        console.log(err)
+      }
+    } else {
       navigate(`/`)
-    }
-  }
-
-  /*----------UPDATE USER ASSESSMENT ARRAY----------*/
-  const postResult = async () => {
-    try {
-      await axios.put(`/api/users/${sessionStorage.getItem("user")}`, {
-        assessments: [...user.assessments],
-      })
-    } catch (err) {
-      console.log(err)
     }
   }
 
@@ -120,7 +113,7 @@ const Assessment = () => {
             </button>
             <div className="quiz-countdown">
               <h1 className="quiz-h1">{assessment.title} Test</h1>
-              <Countdown handleSubmit={handleSubmit} countdown={countdown} />
+              <Countdown postResult={postResult} countdown={countdown} />
             </div>
             <button onClick={handleSubmit} className="button-profile">
               Submit

@@ -23,8 +23,6 @@ const SignUp = ({ handleUser }) => {
     }
   }
 
-  console.log(users)
-
   /*----------FORM STATE AND HELPER TEXT----------*/
   const [formState, setFormState] = useState(initialState)
   const [helpText, setHelpText] = useState(
