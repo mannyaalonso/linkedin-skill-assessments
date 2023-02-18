@@ -230,6 +230,15 @@
     align-items: center;
   }
 
+  .quiz-img-container p {
+    color: white;
+    width: 100%;
+    white-space: pre;
+    text-align: left;
+    margin-left: 40px;
+  }
+
+
   .choices {
     display: flex;
     width: 100%;

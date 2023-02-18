@@ -121,30 +121,31 @@ const Assessment = () => {
           </div>
         </header>
         <div className="quiz-container">
-          {assessment.questions.map((questions, index) => (
+          {assessment.questions.map((question, index) => (
             <div key={index} className="quiz-card">
               <div className="quiz-question">
-                <h4>{questions.prompt}</h4>
+                <h4>{question.number}. {question.prompt}</h4>
               </div>
               <div className="quiz-img-container">
-                {questions.codeUrl !== "" && (
-                  <img
-                    className="quiz-img"
-                    src={questions.codeUrl}
-                    alt="code"
-                  />
+                {question.codeUrl !== "" && (
+                  <p>{question.codeUrl}</p>
+                  // <img
+                  //   className="quiz-img"
+                  //   src={question.codeUrl}
+                  //   alt="code"
+                  // />
                 )}
               </div>
               <div className="choices">
-                {questions.choices.map((choice) => (
+                {question.choices.map((choice) => (
                   <div key={choice} className="alignment">
                     <input
-                      onChange={() => onChange(choice, questions.answer, index)}
-                      name={questions.prompt}
-                      id={questions.prompt}
+                      onChange={() => onChange(choice, question.answer, index)}
+                      name={question.prompt}
+                      id={question.prompt}
                       type="radio"
                     />
-                    <label htmlFor={questions.prompt}>{choice}</label>
+                    <label htmlFor={question.prompt}>{choice}</label>
                   </div>
                 ))}
               </div>
