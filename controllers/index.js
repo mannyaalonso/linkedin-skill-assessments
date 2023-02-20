@@ -39,10 +39,10 @@ const createUser = async (req, res) => {
     const user = await new User(req.body)
     await user.save()
     return res.status(201).json({
-      user,
+      user
     })
   } catch (error) {
-    return res.status(500).json({ error: error.message })
+    return res.status(500).json({ message: "Error occured" })
   }
 }
 
@@ -92,6 +92,17 @@ const deleteUser = async (req, res) => {
   }
 }
 
+const loginUser = async (req, res) => {
+  const { email } = req.body
+  User.findOne({ email }, (error, user) => {
+    if (!user) {
+      return res.status(401).json({ message: "Email not found" })
+    } else {
+      res.status(200).json({ message: "Login successful", user: user })
+    }
+  })
+}
+
 module.exports = {
   getAllAssessments,
   getAssessmentById,
@@ -101,4 +112,5 @@ module.exports = {
   getUserById,
   updateUser,
   deleteUser,
+  loginUser,
 }

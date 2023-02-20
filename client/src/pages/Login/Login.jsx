@@ -1,82 +1,117 @@
 import { useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { useState, useEffect } from "react"
+import jwt_decode from "jwt-decode"
 import axios from "axios"
 import "../../index.css"
 
-const Login = ({ handleUser}) => {
-  const [users, setUsers] = useState()
-  const navigate = useNavigate()
+const Login = ({ handleUser, setUser }) => {
+  // const [users, setUsers] = useState()
+  // const navigate = useNavigate()
 
   /*----------INITIAL STATE----------*/
-  const initialState = {
-    email: "",
-    password: "",
-    assesments: [],
-  }
+  // const initialState = {
+  //   email: "",
+  //   password: "",
+  //   assesments: [],
+  // }
 
   /*----------GET USERS----------*/
-  const getUsers = async () => {
-    try {
-      let res = await axios.get(`/api/users`)
-      setUsers(res.data.users)
-    } catch (err) {
-      console.log(err)
-    }
-  }
+  // const getUsers = async () => {
+  //   try {
+  //     let res = await axios.get(`/api/users`)
+  //     setUsers(res.data.users)
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+  // }
 
-  /*----------FORM STATE AND HELPER TEXT----------*/
-  const [formState, setFormState] = useState(initialState)
-  const [helpText, setHelpText] = useState(
-    <p className="account">
-      Need an account?
-      <Link to={"/"}>
-        <span> Sign up </span>
-      </Link>
-    </p>
-  )
+  // /*----------FORM STATE AND HELPER TEXT----------*/
+  // const [formState, setFormState] = useState(initialState)
+  // const [helpText, setHelpText] = useState(
+  //   <p className="account">
+  //     Need an account?
+  //     <Link to={"/"}>
+  //       <span> Sign up </span>
+  //     </Link>
+  //   </p>
+  // )
 
   /*----------CHECK IF EMAIL AND PASSWORD MATCH FROM USERS ARRAY----------*/
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (formState.email && formState.password) {
-      for (let i = 0; i < users.length; i++) {
-        if (
-          formState.email === users[i].email &&
-          formState.password === users[i].password
-        ) {
-          handleUser("login", users[i]._id)
-          navigate("/")
-        } else {
-          setHelpText(
-            <p className="account">
-              Please verify email and password
-              <Link to={"/"}>
-                <span> Sign up </span>
-              </Link>
-            </p>
-          )
-        }
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault()
+  //   if (formState.email && formState.password) {
+  //     for (let i = 0; i < users.length; i++) {
+  //       if (
+  //         formState.email === users[i].email &&
+  //         formState.password === users[i].password
+  //       ) {
+  //         handleUser("login", users[i]._id)
+  //         navigate("/")
+  //       } else {
+  //         setHelpText(
+  //           <p className="account">
+  //             Please verify email and password
+  //             <Link to={"/"}>
+  //               <span> Sign up </span>
+  //             </Link>
+  //           </p>
+  //         )
+  //       }
+  //     }
+  //   }
+  // }
+
+  // /*----------SET FORM STATE AND RESET HELP TEXT----------*/
+  // const handleChange = (e) => {
+  //   setHelpText(
+  //     <p className="account">
+  //       Need an account?
+  //       <Link to={"/"}>
+  //         <span> Sign up </span>
+  //       </Link>
+  //     </p>
+  //   )
+  //   setFormState({ ...formState, [e.target.id]: e.target.value })
+  // }
+
+  const createUser = async (userObject) => {
+    try {
+      const res = await axios.post(`/api/users`, {
+        name: userObject.name,
+        email: userObject.email,
+        picture: userObject.picture,
+        isLoggedIn: true,
+      })
+      setUser(res.data.user)
+    } catch (err) {
+      if (err.response.status === 500) {
+        try {
+          let email = { email: userObject.email }
+          let res = await axios.post('/api/login', email)
+          if (res.data.message === 'Login successful') setUser(res.data.user)
+        } catch (e) {}
       }
     }
   }
 
-  /*----------SET FORM STATE AND RESET HELP TEXT----------*/
-  const handleChange = (e) => {
-    setHelpText(
-      <p className="account">
-        Need an account?
-        <Link to={"/"}>
-          <span> Sign up </span>
-        </Link>
-      </p>
-    )
-    setFormState({ ...formState, [e.target.id]: e.target.value })
+  const handleCallBackResponse = async (response) => {
+    let userObject = jwt_decode(response.credential)
+    createUser(userObject)
   }
 
   /*----------RUN USEEFFECT ONCE----------*/
   useEffect(() => {
-    getUsers()
+    /* global google */
+    google.accounts.id.initialize({
+      client_id:
+        "274175101183-4mve9l24sn15adfls3jrhdpt177clk8k.apps.googleusercontent.com",
+      callback: handleCallBackResponse,
+    })
+    google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+      theme: "outline",
+      size: "large",
+    })
   }, [])
 
   /*----------RENDER----------*/
@@ -98,26 +133,7 @@ const Login = ({ handleUser}) => {
         <div className="form-flex-container">
           <p>Hello,</p>
           <h1>Welcome back</h1>
-          <form className="form" onSubmit={handleSubmit}>
-            <label htmlFor="email">Email</label>
-            <input
-              onChange={handleChange}
-              value={formState.email}
-              type="email"
-              id="email"
-            />
-            <label htmlFor="password">Password</label>
-            <input
-              onChange={handleChange}
-              value={formState.password}
-              type="password"
-              id="password"
-            />
-            <button className="signup-button" type="submit">
-              LOGIN
-            </button>
-            {helpText}
-          </form>
+          <div id="signInDiv"></div>
         </div>
       </div>
     </div>

@@ -8,22 +8,25 @@ import Home from "./pages/Home/Home"
 import axios from "axios"
 
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [user, setUser] = useState({})
   const [users, setUsers] = useState()
   const navigate = useNavigate()
 
   /*----------HANDLE CONDITIONAL RENDERING----------*/
   const handleUser = (action, id) => {
-    getUsers()
-    if (action === "delete") {
-      deleteUser()
-    } else if (action === "logout") {
-      sessionStorage.removeItem("user")
-    } else if (action === "login") {
-      sessionStorage.setItem("user", id)
-    } else {
-      sessionStorage.setItem("user", id)
-    }
-    navigate("/")
+    // console.log(action, id)
+    // getUsers()
+    // if (action === "delete") {
+    //   deleteUser()
+    // } else if (action === "logout") {
+    //   sessionStorage.removeItem("user")
+    // } else if (action === "login") {
+    //   sessionStorage.setItem("user", id)
+    // } else {
+    //   sessionStorage.setItem("user", id)
+    // }
+    // //navigate("/")
   }
 
   /*----------GET USERS----------*/
@@ -52,18 +55,25 @@ const App = () => {
     }
   }
 
+  console.log("USER1", user._id)
+
   /*----------RENDER----------*/
   return (
     <div>
       <main>
         <Routes>
-          {sessionStorage.getItem("user") ? (
-            <Route path="/" element={<Home handleUser={handleUser} />} />
+          {user ? (
+            <Route
+              path="/"
+              element={<Home handleUser={handleUser} user={user} />}
+            />
           ) : (
-            <Route path="/" element={<SignUp handleUser={handleUser} />} />
+            <Route
+              path="/"
+              element={<Login handleUser={handleUser} setUser={setUser} />}
+            />
           )}
-          <Route path="/login" element={<Login handleUser={handleUser} />} />
-          <Route path="/assessments/:id" element={<Assessment />} />
+          <Route path="/assessments/:id" element={<Assessment />} user={user} />
         </Routes>
       </main>
     </div>
