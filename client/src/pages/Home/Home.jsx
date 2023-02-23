@@ -68,6 +68,7 @@ const Home = ({ handleUser }) => {
             alt="header"
           />
           <h1 className="header-h1">Welcome</h1>
+          {/* <img className="profile-pic" src={sessionStorage.getItem('picture')} alt="profile" /> */}
         </header>
         <main className="main">
           <div className="main-container">
