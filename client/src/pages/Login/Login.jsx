@@ -4,108 +4,45 @@ import { useState, useEffect } from "react"
 import jwt_decode from "jwt-decode"
 import axios from "axios"
 import "../../index.css"
+import Home from "../Home/Home"
+/*global google*/
 
-const Login = ({ handleUser, setUser }) => {
-  // const [users, setUsers] = useState()
-  // const navigate = useNavigate()
+const Login = ({ setUser }) => {
 
-  /*----------INITIAL STATE----------*/
-  // const initialState = {
-  //   email: "",
-  //   password: "",
-  //   assesments: [],
-  // }
-
-  /*----------GET USERS----------*/
-  // const getUsers = async () => {
-  //   try {
-  //     let res = await axios.get(`/api/users`)
-  //     setUsers(res.data.users)
-  //   } catch (err) {
-  //     console.log(err)
-  //   }
-  // }
-
-  // /*----------FORM STATE AND HELPER TEXT----------*/
-  // const [formState, setFormState] = useState(initialState)
-  // const [helpText, setHelpText] = useState(
-  //   <p className="account">
-  //     Need an account?
-  //     <Link to={"/"}>
-  //       <span> Sign up </span>
-  //     </Link>
-  //   </p>
-  // )
-
-  /*----------CHECK IF EMAIL AND PASSWORD MATCH FROM USERS ARRAY----------*/
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault()
-  //   if (formState.email && formState.password) {
-  //     for (let i = 0; i < users.length; i++) {
-  //       if (
-  //         formState.email === users[i].email &&
-  //         formState.password === users[i].password
-  //       ) {
-  //         handleUser("login", users[i]._id)
-  //         navigate("/")
-  //       } else {
-  //         setHelpText(
-  //           <p className="account">
-  //             Please verify email and password
-  //             <Link to={"/"}>
-  //               <span> Sign up </span>
-  //             </Link>
-  //           </p>
-  //         )
-  //       }
-  //     }
-  //   }
-  // }
-
-  // /*----------SET FORM STATE AND RESET HELP TEXT----------*/
-  // const handleChange = (e) => {
-  //   setHelpText(
-  //     <p className="account">
-  //       Need an account?
-  //       <Link to={"/"}>
-  //         <span> Sign up </span>
-  //       </Link>
-  //     </p>
-  //   )
-  //   setFormState({ ...formState, [e.target.id]: e.target.value })
-  // }
-
-  const createUser = async (userObject) => {
+  const navigate = useNavigate()
+  const handleCallBackResponse = async (response) => {
+    let userObject = jwt_decode(response.credential)
     try {
       const res = await axios.post(`/api/users`, {
         name: userObject.name,
         email: userObject.email,
         picture: userObject.picture,
-        isLoggedIn: true,
       })
       setUser(res.data.user)
+      sessionStorage.setItem("user", res.data.user._id)
+      sessionStorage.setItem("name", res.data.user.name)
+      sessionStorage.setItem("picture", res.data.user.picture)
     } catch (err) {
       if (err.response.status === 500) {
         try {
           let email = { email: userObject.email }
-          let res = await axios.post('/api/login', email)
-          if (res.data.message === 'Login successful') setUser(res.data.user)
+          let res = await axios.post("/api/login", email)
+          if (res.data.message === "Login successful") {
+            setUser(res.data.user)
+            sessionStorage.setItem("user", res.data.user._id)
+            sessionStorage.setItem("name", res.data.user.name)
+            sessionStorage.setItem("picture", res.data.user.picture)
+          }
         } catch (e) {}
       }
     }
   }
 
-  const handleCallBackResponse = async (response) => {
-    let userObject = jwt_decode(response.credential)
-    createUser(userObject)
-  }
-
-  /*----------RUN USEEFFECT ONCE----------*/
+  
   useEffect(() => {
-    /* global google */
+    //window.location.reload()
     google.accounts.id.initialize({
-      client_id:
-        "274175101183-4mve9l24sn15adfls3jrhdpt177clk8k.apps.googleusercontent.com",
+      client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
       callback: handleCallBackResponse,
     })
     google.accounts.id.renderButton(document.getElementById("signInDiv"), {
@@ -114,8 +51,7 @@ const Login = ({ handleUser, setUser }) => {
     })
   }, [])
 
-  /*----------RENDER----------*/
-  return (
+  return !sessionStorage.getItem("user") ? (
     <div className="container">
       <div className="img-container">
         <div className="h1-container">
@@ -131,13 +67,18 @@ const Login = ({ handleUser, setUser }) => {
       </div>
       <div className="form-container">
         <div className="form-flex-container">
-          <p>Hello,</p>
-          <h1>Welcome back</h1>
+          <p className="login">Hello,</p>
+          <h1 className="login">
+            Please <span>Sign In</span>
+          </h1>
           <div id="signInDiv"></div>
         </div>
       </div>
     </div>
+  ) : (
+    <Home />
   )
+  
 }
 
 export default Login

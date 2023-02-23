@@ -6,7 +6,6 @@ const usersSchema = new Schema(
     email: { type: String, required: true, unique: true },
     picture: { type: String },
     assessments: [{ type: Schema.Types.ObjectId, ref: "Assessments" }],
-    isLoggedIn: { type: Boolean, required: true },
   },
   { timestamps: true }
 )

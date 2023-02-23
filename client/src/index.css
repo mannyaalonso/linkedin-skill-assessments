@@ -39,12 +39,22 @@ body {
 
   .form-flex-container {
     display: flex;
-    justify-content: center;
     flex-direction: column;
     align-items: center;
-    background-color: white;
-    width: 100%;
-    padding-top: 10px;
+    justify-content: center;
+    width: 220px;
+    padding: 60px;
+    border-radius: 20px;
+  }
+
+  .form-flex-container h1, p {
+    width: 80%;
+    margin-bottom: 20px;
+  }
+
+  .login {
+    font-size: 3rem;
+    text-align: center;
   }
 
   .form {
@@ -113,7 +123,7 @@ body {
 
   .img-h1 {
     margin: 0;
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: white;
   }
 }
@@ -154,13 +164,24 @@ body {
     justify-content: center;
   }
 
-  .form-flex-container {
+   .form-flex-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 320px;
-    height: 50vw;
+    width: 420px;
+    padding: 60px;
+    border-radius: 20px;
+  }
+
+  .form-flex-container h1, p {
+    width: 80%;
+    margin-bottom: 20px;
+  }
+
+  .login {
+    font-size: 2.5rem;
+    text-align: center;
   }
 
   .form {
@@ -273,8 +294,19 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 320px;
-    height: 50vw;
+    width: 420px;
+    padding: 60px;
+    border-radius: 20px;
+  }
+
+  .form-flex-container h1, p {
+    width: 80%;
+    margin-bottom: 20px;
+  }
+
+  .login {
+    font-size: 3rem;
+    text-align: center;
   }
 
   .form {
