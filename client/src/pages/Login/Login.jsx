@@ -1,15 +1,12 @@
-import { useNavigate } from "react-router-dom"
-import { Link } from "react-router-dom"
-import { useState, useEffect } from "react"
 import jwt_decode from "jwt-decode"
+import { useEffect } from "react"
+import Home from "../Home/Home"
 import axios from "axios"
 import "../../index.css"
-import Home from "../Home/Home"
 /*global google*/
 
 const Login = ({ setUser }) => {
 
-  const navigate = useNavigate()
   const handleCallBackResponse = async (response) => {
     let userObject = jwt_decode(response.credential)
     try {
@@ -40,7 +37,6 @@ const Login = ({ setUser }) => {
 
   
   useEffect(() => {
-    //window.location.reload()
     google.accounts.id.initialize({
       client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
       callback: handleCallBackResponse,

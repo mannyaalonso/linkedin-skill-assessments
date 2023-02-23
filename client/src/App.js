@@ -8,14 +8,10 @@ import axios from "axios"
 
 const App = () => {
   const [user, setUser] = useState("")
-
-  const [users, setUsers] = useState()
   const navigate = useNavigate()
 
   /*----------HANDLE CONDITIONAL RENDERING----------*/
   const handleUser = (action, id) => {
-    console.log("ACTION", action, id)
-    //getUsers()
     if (action === "delete") {
       deleteUser()
     } else if (action === "logout") {
@@ -26,16 +22,6 @@ const App = () => {
       sessionStorage.setItem("user", id)
     }
     navigate("/")
-  }
-
-  /*----------GET USERS----------*/
-  const getUsers = async () => {
-    try {
-      let res = await axios.get(`/api/users`)
-      setUsers(res.data.users)
-    } catch (err) {
-      console.log(err)
-    }
   }
 
   /*----------DELETE USER----------*/
